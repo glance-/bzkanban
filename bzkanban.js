@@ -266,12 +266,14 @@ function createActions() {
     whoami.id = "whoami";
     whoami.style.display = "none";
 
+    /*
     var login = document.createElement("button");
     login.id = "btnSignIn";
     login.innerText = "Login";
     login.addEventListener("click", function() {
         showLoginModal();
     });
+    */
 
     var bell = document.createElement("i");
     bell.id = "notification";
@@ -280,7 +282,7 @@ function createActions() {
     actions.appendChild(createBacklogButton());
     actions.appendChild(newbug);
     actions.appendChild(whoami);
-    actions.appendChild(login);
+    //actions.appendChild(login);
     actions.appendChild(bell);
 
     return actions;
@@ -554,9 +556,9 @@ function loadComments(bug) {
 }
 
 function loadName(callback) {
-    if (!isLoggedIn()) {
+    //if (!isLoggedIn()) {
         return callback();
-    }
+    //}
     httpGet("/rest.cgi/user/" + bzAuthObject.userID, function(response) {
         bzUserFullName = response.users[0].real_name;
         if (bzUserFullName !== null) {
@@ -1014,7 +1016,7 @@ function httpRequest(method, url, dataObj, successCallback, errorCallback) {
             url += "&";
         }
 
-        url += "token=" + bzAuthObject.userToken;
+        //url += "token=" + bzAuthObject.userToken;
     }
 
     xhr.open(method, bzOptions.siteUrl + url);
@@ -1086,6 +1088,7 @@ function doAuth(user, password) {
 }
 
 function isLoggedIn() {
+    return true;
     return bzAuthObject !== null;
 }
 
@@ -1127,7 +1130,7 @@ function showColumnCounts() {
 }
 
 function writeBug(dataObj) {
-    dataObj.token = bzAuthObject.userToken;
+    //dataObj.token = bzAuthObject.userToken;
 
     httpPut("/rest.cgi/bug/" + dataObj.id, dataObj, function() {
         loadBoard();
